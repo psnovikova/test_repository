@@ -1,18 +1,26 @@
 <script setup>
 import { ref } from 'vue'
+import { useDark, useDebounceFn } from '@vueuse/core'
 
 // для получения данных из fetch
 const array = ref()
 // для v-model in input
 const search = ref()
 
-const searchFunc = async () => {
-  setTimeout(async () => {
-    const res = await fetch(`https://api.github.com/search/repositories?q=${search.value}&page=1&per_page=100`)
-    const data = await res.json()
-    array.value = data.items
-  }, 2000)
-}
+// debounce для ожидания ввода запроса
+const debounceFunc = useDebounceFn(async () => {
+  const res = await fetch(`https://api.github.com/search/repositories?q=${search.value}&page=1&per_page=100`)
+  const data = await res.json()
+  array.value = data.items
+}, 1000)
+
+// dark theme
+const isDark = useDark({
+  selector: 'body',
+  attribute: 'color-scheme',
+  valueDark: 'dark',
+  valueLight: 'light',
+})
 </script>
 
 <template>
@@ -30,7 +38,7 @@ const searchFunc = async () => {
       <input
         v-model="search" placeholder="поиск..."
         class="border-2 border-slate-500 w-1/3 h-16 text-2xl pl-5"
-        @input="searchFunc"
+        @input="debounceFunc"
       >
     </div>
     <div class="flex flex-col items-center">
