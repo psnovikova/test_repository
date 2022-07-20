@@ -12,7 +12,7 @@ defineProps({
 <template>
   <a
     :href="repository.url" target="_blank"
-    class="flex flex-col space-y-3 w-full bg-white border rounded-xl p-4 shadow hover:shadow-md duration-200 dark:bg-stone-700 dark:border-stone-600"
+    class="flex flex-col space-y-3 w-full hover:bg-white border border-transparent rounded-xl p-4 hover:shadow-md duration-200 dark:hover:bg-stone-700 dark:hover:border-stone-600"
   >
     <div class="flex flex-row items-center space-x-3">
       <img

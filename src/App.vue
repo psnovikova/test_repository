@@ -41,8 +41,13 @@ watch(search, () => {
       </UseDark>
     </div>
     <SearchBar v-model="search" />
-    <div class="flex flex-col space-y-4 items-center">
-      <RepositoryCard v-for="repository in repositories" :key="repository.id" :repository="repository" />
+    <div class="flex flex-col items-center -mx-4">
+      <div
+        v-for="repository in repositories" :key="repository.id"
+        class="w-full after:border-t after:grow after:block after:mt-3 after:pb-3 after:mx-4 dark:after:border-stone-600"
+      >
+        <RepositoryCard :repository="repository" />
+      </div>
       <ThePaginate v-if="pageCount > 1" :page-count="pageCount" :click-handler="findRepositories" />
     </div>
   </div>
